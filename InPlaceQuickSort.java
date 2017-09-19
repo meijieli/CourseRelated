@@ -43,27 +43,28 @@ public class InPlaceQuickSort {
 	}
 	
 	/** In-place algorithm */
-	public void quickSort(int[] array, int left, int right){
-		if (left >= right)
+	public void quickSort(int[] array, int a, int b){
+		if (a >= b)
 			return;
-		int pivot = array[array.length - 1]; // choose pivot as the last element
+		int left = a, right = b - 1;	// two pointers
+		int pivot = array[b]; // choose pivot as the last element
 		while(left <= right){
 			while (left <= right && array[left] < pivot)
 				left++;
 			while(left <= right && array[right] > pivot)
 				right--;
-			if (array[left] >= array[right]){ // if left == right == pivot, still going, 
+			if (left <= right){ 
 											  // till left reaches a value larger than pivot (exchange positions with pivot)
-				array[left] = array[left] ^ array[right];
-				array[right] = array[left] ^ array[right];
-				array[left] = array[left] ^ array[right];
+				int temp = array[left];
+				array[left] = array[right];
+				array[right] = temp;
 				left++; right--;
 			}	
 		}
-		array[left] = array[right + 1] ^ array[left];
-		array[right + 1] = array[right + 1] ^ array[left];
-		array[left] = array[right + 1] ^ array[left];
-		quickSort(array, 0, left - 1);
-		quickSort(array, left + 1, right + 1);
+		int temp = array[b];
+		array[b] = array[left];
+		array[left] = temp;
+		quickSort(array, a, left - 1);
+		quickSort(array, left + 1, b);
 	}
 }
