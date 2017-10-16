@@ -1,7 +1,7 @@
 DELIMITER $$
 CREATE FUNCTION `generate_uni` (last_name VARCHAR(32), first_name VARCHAR(32)) RETURNS VARCHAR(8)
 BEGIN 
-	DECLARE c1 CHAR(2);
+    DECLARE c1 CHAR(2);
     DECLARE c2 CHAR(2);
     DECLARE prefix CHAR(5);
     DECLARE uni_count INT;
