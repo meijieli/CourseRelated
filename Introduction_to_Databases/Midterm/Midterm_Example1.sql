@@ -1,5 +1,5 @@
 /* Mid-term example --- Modify order details table in northwind database */
-
+/* A weak entity uses a LineNo as part of Primary Key */
 /* Goal: 		
 	Create a new OrderDetails table that use OrderID + LineNo as primary key and 
 	OrderID and ProductID as foreign key */
