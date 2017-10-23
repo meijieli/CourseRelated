@@ -1,6 +1,6 @@
 Othello AI Agent
 ===
-Inroduction
+Inroduction:
 ---
 We will implement an AI player for the game Reversi, also known as Othello. 
 For the rules of this game see here: https://en.wikipedia.org/wiki/Reversi (Links to an external site.)Links to an external site.. Our version of the game differs from these rules in one minor point: The game ends as soon as one of the players has no legal moves left. 
