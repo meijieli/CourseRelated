@@ -12,3 +12,7 @@ Files:
 * othello_shared.py - Functions for computing legal moves, captured disks, and successor game states. These are shared between the game manager, the GUI and the AI players. 
 * randy_ai.py - Randy is an "AI" player that randomly selects a legal move.
 * othello_ai.py - The ai that uses minimax and alpha-beta pruning algorithm
+
+Example:
+---
+![image](https://github.com/Shenzhi-ZHANG/CourseRelated/blob/master/Artificial_Intelligence/Homework2/othello_game.png)
