@@ -17,4 +17,4 @@ TestDataGenerator.java - A java program that creates arbitrary number of realist
 
 EER Diagram:
 ---
-![image](https://github.com/Shenzhi-ZHANG/CourseRelated/tree/master/Introduction_to_Databases/homework2/Diagram.png)
+![image](https://github.com/Shenzhi-ZHANG/CourseRelated/blob/master/Introduction_to_Databases/homework2/Diagram.png)
