@@ -1,4 +1,4 @@
-# Course related code
+# Course Related Code
 
 Code related to the courses at Columbia University. This repository will continue to be updated.
 
