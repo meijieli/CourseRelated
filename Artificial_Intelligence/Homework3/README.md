@@ -22,10 +22,13 @@ ham	Just hopeing that wasn‘t too pissed up to remember and has gone off to his
 
 Files:
 ---
-train.txt: contains the training data for 5574 SMS text messages
-dev.txt: contains the validation data
-test.txt: contains the test data
-classifier.py: the naive bayes classifier written in python, for detailed description, please refer to the comments in this file
+**train.txt**: contains the training data for 5574 SMS text messages
+
+**dev.txt**: contains the validation data
+
+**test.txt**: contains the test data
+
+**classifier.py**: the naive bayes classifier written in python, for detailed description, please refer to the comments in this file
 
 Sample Output:
 ---
