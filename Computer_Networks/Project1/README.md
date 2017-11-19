@@ -44,9 +44,9 @@ Your proxy could estimate each stream’s throughput once per chunk as follows. 
   
 To smooth your throughput estimate, your proxy should use an exponentially-weighted moving average (EWMA). Every time you make a new measurement (Tnew), update your current throughput estimate as follows:
 
-'''
+```
 T_current = αT_new + (1-α)T_current
-'''
+```
 
 The constant 0 ≤ α ≤ 1 controls the tradeoff between a smooth throughput estimate (α closer to 0) and one that reacts quickly to changes (α closer to 1). You will control α via a command line argument. When a new stream starts, set Tcurrent to the lowest available bitrate for that video.
 
@@ -59,83 +59,130 @@ Your proxy should learn which bitrates are available for a given video by parsin
 
 Your proxy replaces each chunk request with a request for the same chunk at the selected bitrate (in Kbps) by modifying the HTTP request’s Request­URI. Video chunk URIs are structured as follows:
 
-'''
+```
 /path/to/video/<bitrate>Seq<num>-Frag<num>
-'''
+```
 
 For example, suppose the player requests fragment 3 of chunk 2 of the video Big Buck Bunny at 500 Kbps:
 
-'''
+```
 /path/to/video/500Seg2-Frag3
-'''
+```
 
 To switch to a higher bitrate, e.g., 1000 Kbps, the proxy should modify the URI like this:
-’‘’
-/path/to/video/1000Seg2-Frag3
 
-IMPORTANT: When the video player requests big_buck_bunny.f4m, you should instead return big_buck_bunny_nolist.f4m. This file does not list the available bitrates, preventing the video player from attempting its own bitrate adaptation. Your proxy should, however, fetch big_buck_bunny.f4m for itself (i.e., don’t return it to the client) so you can parse the list of available encodings as described above.
+```
+/path/to/video/1000Seg2-Frag3
+```
+
+**IMPORTANT**: When the video player requests big_buck_bunny.f4m, you should instead return big_buck_bunny_nolist.f4m. This file does not list the available bitrates, preventing the video player from attempting its own bitrate adaptation. Your proxy should, however, fetch big_buck_bunny.f4m for itself (i.e., don’t return it to the client) so you can parse the list of available encodings as described above.
  
  2.2.3 Logging
  ---
 We require that your proxy create a log of its activity in a very particular format. After each request, it should append the following line to the log:
+
+```
 <time> <duration> <tput> <avg­tput> <bitrate> <server­ip> <chunkname> time: The current time in seconds since the epoch.
-duration: A floating point number representing the number of seconds it took to download this chunk from the server to the proxy.
-tput: The throughput you measured for the current link in Kbps.
-avg­tput: Your current EWMA throughput estimate in Kbps.
-bitrate: The bitrate your proxy requested for this chunk in Kbps.
-server­ip: The IP address of the server to which the proxy forwarded this request
-chunkname: The name of the file your proxy requested from the server (that is, the modified file name in the modified HTTP GET message).
+```
+
+**duration**: A floating point number representing the number of seconds it took to download this chunk from the server to the proxy.
+
+**tput**: The throughput you measured for the current link in Kbps.
+
+**avg-tput**: Your current EWMA throughput estimate in Kbps.
+
+**bitrate**: The bitrate your proxy requested for this chunk in Kbps.
+
+**server-ip**: The IP address of the server to which the proxy forwarded this request
+
+**chunkname**: The name of the file your proxy requested from the server (that is, the modified file name in the modified HTTP GET message).
 
 2.2.4 Running the Proxy
 ---
+
 You should create an executable Python script called proxy under the proxy directory, which should be invoked as follows:
-./proxy <log> <alpha> <listen­port> <fake­ip> <web­server­ip> log: The file path to which you should log the messages described in Logging.
-alpha: A float in the range [0, 1]. Uses this as the coefficient in your EWMA throughput estimate.
-listen­port: The TCP port your proxy should listen on for accepting connections from your browser.
-fake­ip: Your proxy should bind to this IP address for outbound connections to the web servers. The fake­ip can only be one of the clients’ IP addresses under the network topology you specified (see Network Simulation). You should not bind your proxy listen socket to this IP address—bind that socket to any IP address that can route to it. (i.e. by calling mySocket.listen((“”, <listen­port>))
-web­server­ip: Your proxy should accept an argument specifying the IP address of the web server from which it should request video chunks. It can only be one of the servers’ IP addresses under the network topology you specified (see Network Simulation).
-To play a video through your proxy, point a browser on your VM to the URL http://localhost:<listen­port>/index.html. (You can also configure VirtualBox’s port forwarding to send traffic from <listen­port> on the host machine to <listen­port> on your VM; this way you can play the video from the web browser on the host.)
-See instructions for making your script executable in the section Hand In.
+
+```
+./proxy <log> <alpha> <listen-port> <fake-ip> <web-server-ip> 
+```
+
+**log**: The file path to which you should log the messages described in Logging.
+
+**alpha**: A float in the range [0, 1]. Uses this as the coefficient in your EWMA throughput estimate.
+
+**listen-port**: The TCP port your proxy should listen on for accepting connections from your browser.
+
+**fake-ip**: Your proxy should bind to this IP address for outbound connections to the web servers. The fake­ip can only be one of the clients’ IP addresses under the network topology you specified. You should not bind your proxy listen socket to this IP address—bind that socket to any IP address that can route to it. (i.e. by calling mySocket.listen((“”, <listen-port>))
+
+**web-server-ip**: Your proxy should accept an argument specifying the IP address of the web server from which it should request video chunks. It can only be one of the servers’ IP addresses under the network topology you specified.
+
 3 Development Environment
-For the project, we are providing a virtual machine pre­configured with the software you will need. We strongly recommend that you do all development and testing in this VM; your code must run correctly on this image as we will be using it for grading. This section describes the VM and the starter code it contains.
+===
+
+For the project, we are providing a virtual machine pre-configured with the software you will need. We strongly recommend that you do all development and testing in this VM; your code must run correctly on this image as we will be using it for grading. This section describes the VM and the starter code it contains.
+
 3.1 Virtual Box
 ---
-The virtual machine disk (VMDK) we provide was created using VirtualBox, though you may be able to use it with other virtualization software. VirtualBox is a free download for Windows, OSX, and Linux on https://www.virtualbox.org. And please download the VM instance here, and then import it to your own VirtualBox. Please set the number of processors according to your host machine (By selecting your imported VM image and go t
+The virtual machine disk (VMDK) we provide was created using VirtualBox, though you may be able to use it with other virtualization software. VirtualBox is a free download for Windows, OSX, and Linux on https://www.virtualbox.org.
      
- 3.2 Starter Files
- ---
-You will find the following files in /home/networks/project1­starter. This directory is a git repository; if we find bugs in the starter code and commit fixes, you can get the update versions with a git pull.
-common Common code used by our network simulation and LSA generation scripts. lsa
-lsa/genlsa.py Generates LSAs for a provided network topology. (LSAs are not used in this version of the project, so you can ignore them.)
-netsim
-netsim/netsim.py This script controls the simulated network; see Network Simulation.
-netsim/tc setup.py This script adjusts link characteristics (BW and latency) in the simulated network. It is called by netsim.py; you do not need to interact with it directly.
-netsim/apache setup.py This file contains code used by netsim.py to start and stop Apache instances on the IP addresses in your .servers file; you do not need to interact with it directly.
-grapher.py A script to produce plots of link utilization, fairness, and smoothness from log files. (See Requirements.)
-topos topos/topo1
-topos/topo1/topo1.clients A list of IP addresses, one per line, for the proxies. (Used by netsim.py to create a fake network interface for each proxy.)
-topos/topo1/topo1.servers A list of IP addresses, one per line, for the video servers. (Used by netsim.py to create a fake interface for each server.)
-  
- topos/topo1/topo1.dns A single IP address for your DNS server. (Used by netsim.py to create a fake interface for the DNS server.) However, in this project you will ignore DNS and let your proxy connect to one of the video server directly by IP address.
-topos/topo1/topo1.links A list of links in the simulated network. (Used by genlsa.py.) topos/topo1/topo1.bottlenecks A list of bottleneck links to be used in topo1.events.
-(See §4.3.)
-topos/topo1/topo1.events A list of changes in link characteristics (BW and latency) to “play.” See the comments in the file. (Used by netsim.py.)
-topos/topo1/topo1.lsa A list of LSAs heard by the DNS server in this topology. You can ignore it for this project.
-topos/topo1/topo1.pdf A picture of the network. topos/topo2
+3.2 Starter Files
+---
+**common** Common code used by our network simulation and LSA generation scripts. 
+
+**lsa**
+
+**lsa/genlsa.py** Generates LSAs for a provided network topology. (LSAs are not used in this version of the project, so you can ignore them.)
+
+**netsim**
+
+**netsim/netsim.py** This script controls the simulated network;
+
+**netsim/tc setup.py** This script adjusts link characteristics (BW and latency) in the simulated network. It is called by 
+
+**netsim.py**; you do not need to interact with it directly.
+
+**netsim/apache setup.py** This file contains code used by netsim.py to start and stop Apache instances on the IP addresses in your .servers file; you do not need to interact with it directly.
+
+**grapher.py** A script to produce plots of link utilization, fairness, and smoothness from log files.
+
+**topos topos/topo1**
+
+**topos/topo1/topo1.clients** A list of IP addresses, one per line, for the proxies. (Used by netsim.py to create a fake network interface for each proxy.)
+
+**topos/topo1/topo1.servers** A list of IP addresses, one per line, for the video servers. (Used by netsim.py to create a fake interface for each server.)
+  
+**topos/topo1/topo1.dns** A single IP address for your DNS server. (Used by netsim.py to create a fake interface for the DNS server.) However, in this project you will ignore DNS and let your proxy connect to one of the video server directly by IP address.
+  
+**topos/topo1/topo1.links** A list of links in the simulated network. (Used by genlsa.py.) topos/topo1/topo1.bottlenecks A list of bottleneck links to be used in topo1.events.
+
+**topos/topo1/topo1.events** A list of changes in link characteristics (BW and latency) to “play.”
+
+**topos/topo1/topo1.lsa** A list of LSAs heard by the DNS server in this topology. You can ignore it for this project.
+
+**topos/topo1/topo1.pdf** A picture of the network. topos/topo2
 
 3.3 Network Simulation
 ---
 To test your system, you will run everything (proxies, servers, and DNS server) on a simulated network in the VM. You control the simulated network with the netsim.py script. You need to provide the script with a directory containing a network topology, which consists of several files. We provide two sample topologies; feel free to create your own. See Starter Files for a description of each of the files comprising a topology. Note that netsim.py requires that each constituent file’s prefix match the name of the topology (e.g. in the topo1 directory, files are named topo1.clients, topo1.servers, etc.).
-To start the network from the netsim directory: ./netsim.py <topology> start
+To start the network from the netsim directory: 
+
+```
+./netsim.py <topology> start
+```
+
 <topology> is the path of the topology file, e.g. ../topos/topos1 for topology 1
+ 
 Starting the network creates a fake network interface for each IP address in the .clients, .servers files; this allows your proxies, Apache instances to bind to these IP addresses.
 To stop it once started (thereby removing the fake interfaces), run:
- 
- ./netsim.py <topology> stop
-To facilitate testing your adaptive bitrate selection, the simulator can vary the bandwidth and latency of an link designated as a bottleneck in your topology’s .bottlenecks file. (Bottleneck links must be declared because our simulator limits you to adjusting the characteristics of only one link between any pair of endpoints. This also means that some topologies simply cannot be simulated by our simulator.) To do so, add link changes to the .events file you pass to netsim.py. Events can run automatically according to timings specified in the file or they can wait to run until triggered by the user (see topos/topo1/topo1.events for an example). When your .events file is ready, tell netsim.py to run it:
-./netsim.py <topology> run
-Note that you must start the network before running any events. You can issue the run commands as many times as you want without restarting the network. You may modify the .events file between runs, but you must not modify any other topology files, including the .bottlenecks file, without restarting the network. Also note that the links stay as the last event configured them even when netsim.py finishes running.
 
-3.4 Apache
----
-You will use the Apache web server to serve the video files. Netsim.py automatically starts an instance of Apache for you on each IP address listed in your topology’s .servers file. Each instance listens on port 8080 and is configured to serve files from /var/www; we have put sample video chunks here for you.
+```
+ ./netsim.py <topology> stop
+```
+
+To facilitate testing your adaptive bitrate selection, the simulator can vary the bandwidth and latency of an link designated as a bottleneck in your topology’s .bottlenecks file. (Bottleneck links must be declared because our simulator limits you to adjusting the characteristics of only one link between any pair of endpoints. This also means that some topologies simply cannot be simulated by our simulator.) To do so, add link changes to the .events file you pass to netsim.py. Events can run automatically according to timings specified in the file or they can wait to run until triggered by the user (see topos/topo1/topo1.events for an example). When your .events file is ready, tell netsim.py to run it:
+
+```
+./netsim.py <topology> run
+```
+
+Note that you must start the network before running any events. You can issue the run commands as many times as you want without restarting the network. You may modify the .events file between runs, but you must not modify any other topology files, including the .bottlenecks file, without restarting the network. Also note that the links stay as the last event configured them even when netsim.py finishes running.
