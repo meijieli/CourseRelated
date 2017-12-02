@@ -27,7 +27,7 @@ Numeric ID	Category Name
 Each image is 32x32 pixels large and there are three color channels (red, green blue). Each image can therefore be represented as three 32x32 matrices or one 32x32x3 cube. 
 Here are some example images: 
 
-sample_img-1.png
+![image](https://github.com/Shenzhi-ZHANG/CourseRelated/blob/master/Artificial_Intelligence/homework4/sample_img-1.png)
 
 Files
 ---
