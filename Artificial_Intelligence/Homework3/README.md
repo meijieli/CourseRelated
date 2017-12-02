@@ -1,4 +1,8 @@
-# Homework3
+# Naive Bayes classifier
+
+Introduction
+---
+
 In this assignment we will implement a Naive Bayes classifier and use it for spam filtering on a text message data set. 
 
 Data Set:
