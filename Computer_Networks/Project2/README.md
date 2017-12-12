@@ -10,9 +10,11 @@ Network Topology
 ---
 
 **Figure 1**: The network topology within an AS
+
 ![image](https://github.com/Shenzhi-ZHANG/CourseRelated/blob/master/Computer_Networks/Project2/Network%20Topology%20Within%20AS.png)
 
-**Figure 2**: AS-level Network Topology 
+**Figure 2**: AS-level Network Topology
+
 ![image](https://github.com/Shenzhi-ZHANG/CourseRelated/blob/master/Computer_Networks/Project2/AS-level%20Network%20Topology.png)
 
 Files
