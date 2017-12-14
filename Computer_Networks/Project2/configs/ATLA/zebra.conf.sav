@@ -1,0 +1,30 @@
+!
+! Zebra configuration saved from vty
+!   2017/11/24 22:37:22
+!
+hostname G9_ATLA
+password G9_ATLA
+!
+interface host
+ ip address 9.104.0.2/24
+ ipv6 nd suppress-ra
+!
+interface hous
+ ip address 9.0.7.1/24
+ ipv6 nd suppress-ra
+!
+interface lo
+!
+interface milw
+ ip address 9.0.3.1/24
+ ipv6 nd suppress-ra
+!
+interface wash
+ ip address 9.0.5.2/24
+ ipv6 nd suppress-ra
+!
+ip forwarding
+!
+!
+line vty
+!
