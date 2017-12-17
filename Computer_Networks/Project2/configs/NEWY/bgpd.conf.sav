@@ -1,0 +1,52 @@
+!
+! Zebra configuration saved from vty
+!   2017/12/07 11:23:20
+!
+hostname G9_NEWY
+password G9_NEWY
+log file /var/log/quagga/bgpd_G9_NEWY.log
+!
+router bgp 9
+ bgp router-id 9.101.0.2
+ network 9.0.0.0/8
+ neighbor newygroup peer-group
+ neighbor newygroup next-hop-self
+ neighbor 9.102.0.2 remote-as 9
+ neighbor 9.102.0.2 peer-group newygroup
+ neighbor 9.102.0.2 update-source host
+ neighbor 9.103.0.2 remote-as 9
+ neighbor 9.103.0.2 peer-group newygroup
+ neighbor 9.103.0.2 update-source host
+ neighbor 9.104.0.2 remote-as 9
+ neighbor 9.104.0.2 peer-group newygroup
+ neighbor 9.104.0.2 update-source host
+ neighbor 9.105.0.2 remote-as 9
+ neighbor 9.105.0.2 peer-group newygroup
+ neighbor 9.105.0.2 update-source host
+ neighbor 9.106.0.2 remote-as 9
+ neighbor 9.106.0.2 peer-group newygroup
+ neighbor 9.106.0.2 update-source host
+ neighbor 9.107.0.2 remote-as 9
+ neighbor 9.107.0.2 peer-group newygroup
+ neighbor 9.107.0.2 update-source host
+ neighbor 9.108.0.2 remote-as 9
+ neighbor 9.108.0.2 peer-group newygroup
+ neighbor 9.108.0.2 update-source host
+ neighbor 9.109.0.2 remote-as 9
+ neighbor 9.109.0.2 peer-group newygroup
+ neighbor 9.109.0.2 update-source host
+ neighbor 179.24.0.1 remote-as 3
+ neighbor 179.24.0.1 route-map newyin in
+ neighbor 179.24.0.1 route-map newyout out
+!
+route-map newyin permit 10
+ set community 9:100
+ set local-preference 200
+!
+route-map newyout deny 10
+ match community 9:100
+!
+route-map newyout permit 20
+!
+line vty
+!
