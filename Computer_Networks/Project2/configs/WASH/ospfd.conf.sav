@@ -1,0 +1,39 @@
+!
+! Zebra configuration saved from vty
+!   2017/12/07 11:41:32
+!
+hostname G9_WASH
+password G9_WASH
+log file /var/log/quagga/ospfd_G9_WASH.log
+!
+!
+!
+interface atla
+ ip ospf cost 700
+!
+interface ebgp_peer
+!
+interface host
+!
+interface lo
+!
+interface milw
+ ip ospf cost 905
+!
+interface newy
+ ip ospf cost 277
+!
+router ospf
+ network 9.0.2.1/24 area 0.0.0.0
+ network 9.0.4.2/24 area 0.0.0.0
+ network 9.0.5.1/24 area 0.0.0.0
+ network 9.103.0.2/24 area 0.0.0.0
+!
+route-map washin permit 10
+!
+route-map washout deny 10
+!
+route-map washout permit 20
+!
+line vty
+!
