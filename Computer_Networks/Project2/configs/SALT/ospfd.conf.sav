@@ -1,0 +1,39 @@
+!
+! Zebra configuration saved from vty
+!   2017/12/07 20:10:26
+!
+hostname G9_SALT
+password G9_SALT
+log file /var/log/quagga/ospfd_G9_SALT.log
+!
+!
+!
+interface ebgp_peer
+!
+interface host
+!
+interface kans
+ ip ospf cost 1330
+!
+interface lo
+!
+interface losa
+ ip ospf cost 1303
+!
+interface seat
+ ip ospf cost 913
+!
+router ospf
+ network 9.0.9.2/24 area 0.0.0.0
+ network 9.0.11.1/24 area 0.0.0.0
+ network 9.0.12.1/24 area 0.0.0.0
+ network 9.107.0.2/24 area 0.0.0.0
+!
+route-map saltin permit 10
+!
+route-map saltout deny 10
+!
+route-map saltout permit 20
+!
+line vty
+!
