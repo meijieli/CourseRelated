@@ -1,0 +1,36 @@
+!
+! Zebra configuration saved from vty
+!   2017/12/07 20:08:57
+!
+hostname G9_SEAT
+password G9_SEAT
+!
+interface ebgp_peer
+ ip address 179.24.2.2/24
+ ipv6 nd suppress-ra
+!
+interface host
+ ip address 9.109.0.2/24
+ ipv6 nd suppress-ra
+!
+interface lo
+!
+interface losa
+ ip address 9.0.13.2/24
+ ipv6 nd suppress-ra
+!
+interface salt
+ ip address 9.0.12.2/24
+ ipv6 nd suppress-ra
+!
+route-map seatin permit 10
+!
+route-map seatout deny 10
+!
+route-map seatout permit 20
+!
+ip forwarding
+!
+!
+line vty
+!
