@@ -1,0 +1,45 @@
+!
+! Zebra configuration saved from vty
+!   2017/12/07 20:08:57
+!
+hostname G9_SEAT
+password G9_SEAT
+log file /var/log/quagga/bgpd_G9_SEAT.log
+!
+router bgp 9
+ bgp router-id 9.0.13.2
+ network 9.0.0.0/8
+ neighbor seatgroup peer-group
+ neighbor seatgroup update-source host
+ neighbor seatgroup next-hop-self
+ neighbor 9.101.0.2 remote-as 9
+ neighbor 9.101.0.2 peer-group seatgroup
+ neighbor 9.102.0.2 remote-as 9
+ neighbor 9.102.0.2 peer-group seatgroup
+ neighbor 9.103.0.2 remote-as 9
+ neighbor 9.103.0.2 peer-group seatgroup
+ neighbor 9.104.0.2 remote-as 9
+ neighbor 9.104.0.2 peer-group seatgroup
+ neighbor 9.105.0.2 remote-as 9
+ neighbor 9.105.0.2 peer-group seatgroup
+ neighbor 9.106.0.2 remote-as 9
+ neighbor 9.106.0.2 peer-group seatgroup
+ neighbor 9.107.0.2 remote-as 9
+ neighbor 9.107.0.2 peer-group seatgroup
+ neighbor 9.108.0.2 remote-as 9
+ neighbor 9.108.0.2 peer-group seatgroup
+ neighbor 179.24.2.1 remote-as 4
+ neighbor 179.24.2.1 route-map seatin in
+ neighbor 179.24.2.1 route-map seatout out
+!
+route-map seatin permit 10
+ set local-preference 200
+ set community 9:100
+!
+route-map seatout deny 10
+ match community 9:100
+!
+route-map seatout permit 20
+!
+line vty
+!
