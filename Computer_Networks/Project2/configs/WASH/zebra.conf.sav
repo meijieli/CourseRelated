@@ -1,0 +1,40 @@
+!
+! Zebra configuration saved from vty
+!   2017/12/07 11:41:32
+!
+hostname G9_WASH
+password G9_WASH
+!
+interface atla
+ ip address 9.0.5.1/24
+ ipv6 nd suppress-ra
+!
+interface ebgp_peer
+ ip address 179.24.3.1/24
+ ipv6 nd suppress-ra
+!
+interface host
+ ip address 9.103.0.2/24
+ ipv6 nd suppress-ra
+!
+interface lo
+!
+interface milw
+ ip address 9.0.2.1/24
+ ipv6 nd suppress-ra
+!
+interface newy
+ ip address 9.0.4.2/24
+ ipv6 nd suppress-ra
+!
+route-map washin permit 10
+!
+route-map washout deny 10
+!
+route-map washout permit 20
+!
+ip forwarding
+!
+!
+line vty
+!
