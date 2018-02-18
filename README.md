@@ -33,3 +33,12 @@ Main Language: **Python**
 **Introduction to computer networks** and the technical foundations of the Internet, including applications, protocols, local area networks, algorithms for routing and congestion control, security, elementary performance evaluation. Several written and programming assignments required.
 
 [Link](https://github.com/Shenzhi-ZHANG/CourseRelated/tree/master/Computer_Networks)
+
+Cloud Computing & Big Data
+---
+Main Platform: Amazon Web Service
+
+Graduate level course on Cloud Computing. Focus is on learning and building extremely large scale systems and applications
+leveraging Cloud. Learn concepts as well as hands-on experience by using real cloud and cloud technologies. Three key objectives: learn how to use a cloud, leverage cloud to build applications, build scalable intelligent systems. Learn cloud technologies by using real clouds - Amazon AWS, Google Cloud, Openstack and Hadoop/Spark.
+
+[Link](https://github.com/Shenzhi-ZHANG/CourseRelated/tree/master/Cloud_Computing_and_Big_Data)
